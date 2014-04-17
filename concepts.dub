@@ -86,3 +86,11 @@ g.foreach (l index value -> {
 def! menu ("würste 3.14€".replace @([\wöäü]+)( )(\d\.\d+)(€)@
                                   @{ "$1" : $3 }@);
 println menu; // which prints { "würste" : 3.14 }
+
+// it is possible for types implementing the rewind
+// feature, to obtain the value set previous to the
+// current one.
+def! anum 12;
+set! anum anum++;
+println "anum is " anum.string;
+println "previous value was " anum.rewind.string;
