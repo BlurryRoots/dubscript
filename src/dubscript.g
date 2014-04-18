@@ -1,26 +1,9 @@
 grammar dubscript;
 
-/*conditional_expression
-: logical_or_expression ('?' expression ':' conditional_expression)?
-;
-
-logical_or_expression
-: logical_and_expression ('||' logical_and_expression)*
-;
-
-logical_and_expression
-: inclusive_or_expression ('&&' inclusive_or_expression)*
-;
-
-primary_expression
-: IDENTIFIER
-| constant
-| '(' expression ')'
-;*/
-
 program
 : statement*
-| EOF;
+| EOF
+;
 
 block
 : '{' statement* '}'
@@ -82,37 +65,50 @@ constant
 ;
 
 KEYWORD_DEFINE
-: 'def!';
+: 'def!'
+;
 
 KEYWORD_UNDEFINE
-: 'rm!';
+: 'rm!'
+;
 
 KEYWORD_IS_DEFINED
-: 'def?';
+: 'def?'
+;
 
 AND
-: '&';
+: '&'
+;
 OR
-: '|';
+: '|'
+;
 
 EQ
-: '=';
+: '='
+;
 NE
-: '\\=';
+: '\\='
+;
 
 GT
-: '>';
+: '>'
+;
 GE
-: '>=';
+: '>='
+;
 LT
-: '<';
+: '<'
+;
 LE
-: '<=';
+: '<='
+;
 
 TRUE
-: 'true';
+: 'true'
+;
 FALSE
-: 'false';
+: 'false'
+;
 
 STRING_LITERAL
 : '\"' ~('\"')* '\"'
@@ -129,16 +125,19 @@ HEX_LITERAL
 ;
 
 ESCAPE_SEQUENCE
-: '\\' ('t' | 'n' | 'r' | '\'' | '\\');
+: '\\' ('t' | 'n' | 'r' | '\'' | '\\')
+;
 
 IDENTIFIER
-: LETTER (LETTER | DIGIT)*;
+: LETTER (LETTER | DIGIT)*
+;
 
 fragment
 LETTER
 : '$'
 | CHAR
-| '_';
+| '_'
+;
 
 DIGIT
 : '0'..'9';
