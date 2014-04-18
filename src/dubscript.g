@@ -19,19 +19,34 @@ primary_expression
 ;*/
 
 program
-: block
+: statement*
 | EOF;
 
 block
-: (statement ';')*
+: '{' statement* '}'
 ;
 
 statement
-: expression ':' '{' block '}'
+: expression ';'
+| conditinal_statement ';'
+| KEYWORD_DEFINE IDENTIFIER expression ';'
+| KEYWORD_UNDEFINE IDENTIFIER ';'
+;
+
+conditinal_statement
+: expression pattern_block+
+;
+pattern_block
+: ':' pattern* block
+;
+
+pattern
+: expression
 ;
 
 expression
 : conditional_expression
+| KEYWORD_IS_DEFINED IDENTIFIER
 ;
 
 conditional_expression
@@ -66,6 +81,15 @@ constant
 | TRUE | FALSE
 ;
 
+KEYWORD_DEFINE
+: 'def!';
+
+KEYWORD_UNDEFINE
+: 'rm!';
+
+KEYWORD_IS_DEFINED
+: 'def?';
+
 AND
 : '&';
 OR
@@ -91,7 +115,7 @@ FALSE
 : 'false';
 
 STRING_LITERAL
-: '\'' ~('\'')* '\''
+: '\"' ~('\"')* '\"'
 ;
 
 INTEGER_LITERAL
@@ -129,70 +153,3 @@ CHAR
 WHITESPACE
 : (' ' | '\r' | '\t' | '\u000C' | '\n') -> skip
 ;
-
-/*program
-: statement* EOF;
-
-statement
-: 
-(   define
-|   is_defined)
-DELIMITER;
-
-define
-: KEYWORD_DEFINE ID (INTEGER | REAL);
-
-undefine
-: KEYWORD_UNDEFINE ID;
-
-is_defined
-: KEYWORD_IS_DEFINED ID;
-
-REAL
-: '-'? DIGIT+ '.' DIGIT+;
-
-INTEGER
-: '-'? DIGIT+;
-
-KEYWORD_DEFINE
-: 'def!';
-
-KEYWORD_UNDEFINE
-: 'undef!';
-
-KEYWORD_IS_DEFINED
-: 'def?';
-
-ID
-: ('_' | CHAR) (CHAR | '_' | DIGIT)*;
-
-LOG_NEQ
-: '\=';
-LOG_EQ
-: '=';
-LOG_OR
-: '|';
-LOG_AND
-: '&';
-
-DELIMITER
-: ';';
-
-PATTERN_OPERATOR
-: ':';
-
-SBLOCK
-: '{';
-EBLOCK
-: '}';
-
-SPAREN
-: '(';
-EPAREN
-: ')';
-
-CHAR
-: 'a'..'z'|'A'..'Z';
-
-DIGIT
-: '0'..'9';*/
