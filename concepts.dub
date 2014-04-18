@@ -62,7 +62,7 @@ undef! add;
 // alternativly you could've done
 fun! add a b {
     a + b;
-}
+};
 
 // lets do some fancy stuff
 // create a temporary list, get a reversed copy of it
