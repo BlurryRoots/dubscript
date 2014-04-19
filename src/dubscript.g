@@ -12,9 +12,24 @@ block
 statement
 : ( expression
   | conditinal_statement
-  | KEYWORD_DEFINE IDENTIFIER expression
-  | KEYWORD_UNDEFINE IDENTIFIER
+  | define_statement
+  | undefine_statement
+  | set_statement
+  | return_statement
   ) ';'
+;
+
+define_statement
+: KEYWORD_DEFINE IDENTIFIER expression
+;
+set_statement
+: KEYWORD_SET IDENTIFIER expression
+;
+undefine_statement
+: KEYWORD_UNDEFINE IDENTIFIER
+;
+return_statement
+: KEYWORD_RETURN expression
 ;
 
 conditinal_statement
@@ -31,9 +46,27 @@ expression
 : artithmetic_expression
 | conditional_expression
 | list_expression
+| map_expression
 | lamnda_expression
 | KEYWORD_IS_DEFINED IDENTIFIER
-| KEYWORD_RETURN expression
+| member_expression
+;
+
+object_expression
+: IDENTIFIER
+| list_expression
+| '(' expression ')'
+;
+
+member_expression
+:  object_expression '.' IDENTIFIER expression*
+;
+
+map_expression
+: '<' pair_expression* '>'
+;
+pair_expression
+: '(' expression expression ')'
 ;
 
 list_expression
@@ -84,6 +117,9 @@ constant
 
 KEYWORD_DEFINE
 : 'def!'
+;
+KEYWORD_SET
+: 'set!'
 ;
 KEYWORD_IS_DEFINED
 : 'def?'

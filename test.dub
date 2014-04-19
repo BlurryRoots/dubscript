@@ -13,14 +13,23 @@ c : false {
         def! stuff "nudelsalat";
     } 
     : depp_kopf = "hans" {
-        def! hans (index value) -> {
-            // create a list
-            def! keks [12 3 42];
+        //
+        def! map <("drei" 3)(234 "stuff")>;
+        // create a list
+        def! keks [12 3 42];
+
+        def! hans (value) -> {
             // return result of arithmic expression
-            return keks * keks
-                 + 3 * keks * (0xAFFE42 + 1.618);
+            return value * value
+                 + 3 * value * (0xAFFE42 + 1.618);
         };
+
         def! blank () -> {};
+
+        def! sum 0;
+        keks.reduce (a b) -> {
+            return a + b;
+        };
     };
 
     (-2.3 \= 13) : {
