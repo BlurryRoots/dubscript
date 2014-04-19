@@ -10,10 +10,11 @@ block
 ;
 
 statement
-: expression ';'
-| conditinal_statement ';'
-| KEYWORD_DEFINE IDENTIFIER expression ';'
-| KEYWORD_UNDEFINE IDENTIFIER ';'
+: ( expression
+  | conditinal_statement
+  | KEYWORD_DEFINE IDENTIFIER expression
+  | KEYWORD_UNDEFINE IDENTIFIER
+  ) ';'
 ;
 
 conditinal_statement
@@ -22,14 +23,18 @@ conditinal_statement
 pattern_block
 : ':' pattern* block
 ;
-
 pattern
 : expression
 ;
 
 expression
 : conditional_expression
+| lamnda_expression
 | KEYWORD_IS_DEFINED IDENTIFIER
+;
+
+lamnda_expression
+: '(' IDENTIFIER* ')' '->' block
 ;
 
 conditional_expression

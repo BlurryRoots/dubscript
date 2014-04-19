@@ -44,17 +44,18 @@ c & ((d = 42) | (d = 23)) : {
 };
 // which can also be accomblished by 
 print "c is " (c : {
-    concat "true"
-           (d : 42 | 23 { " and d is " d.string; });
+    "true" (d : 42 | 23 { " and d is " d.string; });
+} : ? {
+    "something else!";
 });
 
 // here a list of numbers from 1 to 6 a reduced
 // by the logic privided by the anonymous function
-// or lamnda and then assigned to f
-def! e [1 2 3 4 5 6].reduce lam x y -> { x + y; };
+// or lamnda and then assigned to e
+def! e [1 2 3 4 5 6].reduce (x y) -> { x + y; };
 
 // defining a function to add two numbers
-def! add lam a b -> {
+def! add (a b) -> {
     a + b;
 };
 println "calling add with 1111 and 226 is "
@@ -71,15 +72,16 @@ fun add a b {
 // create a temporary list, get a reversed copy of it
 // and start an iteration
 def! g [12 4 1 5 23].reverse;
-g.foreach lam index value -> {
+g.foreach (index value) -> {
     // the iteration is done by providing a callback
     // which calls the add function and if the given
     // pattern is matched, prints the result
     print "i: " index.string;
     (add 1 value) : value * 2 {
-        println " and 1 minus value(" value.string ")"
-                " is equal to value*2(" (value * 2).string ")";
-    } : 5 {
+        println " and 1 plus value(" value.string
+                ") is equal to value*2(" (value * 2).string ")";
+    }
+    : 5 {
         println " and 1 plus " value.string " is 5";
     };
 };
@@ -97,3 +99,15 @@ def! anum 12;
 set! anum anum++;
 println "anum is " anum.string;
 println "previous value was " anum.rewind.string;
+
+// define a macro which defines a variable
+// with the value -1
+mac minus_one! var_name {
+    def! ,var_name -1;
+}
+
+minus_one! a;
+minus_one! b;
+
+// will yield -2
+println (a + b).string;

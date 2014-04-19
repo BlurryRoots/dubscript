@@ -1,16 +1,19 @@
-(c & ("keks" < depp_kopf | (-2.3 \= 13))) : {
+c & ("keks" < depp_kopf | (-2.3 \= 13)) : {
     def! keks_nase -1337.42;
     (def? keks_nase) : {
         rm! keks_nase;
     };
 };
 
-(c) : false {
+c : false {
     ("keks" < depp_kopf) : {
         def! stuff "nudelsalat";
     } 
     : depp_kopf = "hans" {
-        def! hans true;
+        def! hans (index value) -> {
+            def! keks 12;
+        };
+        def! blank () -> {};
     };
 
     (-2.3 \= 13) : {
