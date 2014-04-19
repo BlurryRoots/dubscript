@@ -28,33 +28,41 @@ pattern
 ;
 
 expression
-: conditional_expression
+: artithmetic_expression
+| conditional_expression
 | lamnda_expression
 | KEYWORD_IS_DEFINED IDENTIFIER
+| KEYWORD_RETURN expression
 ;
 
 lamnda_expression
 : '(' IDENTIFIER* ')' '->' block
 ;
 
+artithmetic_expression
+: sum_exression
+;
+sum_exression
+: product_expression ((PLUS | MINUS) product_expression)*
+;
+product_expression
+: basic_expression ((MULTIPLY | DIVISION) basic_expression)*
+;
+
 conditional_expression
 : or_expression
 ;
-
 or_expression
 : and_expression (OR and_expression)*
 ;
-
 and_expression
 : equality_expression (AND equality_expression)*
 ;
-
 equality_expression
-:  relational_expression ((NE | EQ) relational_expression)*
+: relational_expression ((NE | EQ) relational_expression)*
 ;
-
 relational_expression
-:  basic_expression ((LE | LT | GE | GT) basic_expression)*
+: basic_expression ((LE | LT | GE | GT) basic_expression)*
 ;
 
 basic_expression
@@ -72,13 +80,27 @@ constant
 KEYWORD_DEFINE
 : 'def!'
 ;
-
+KEYWORD_IS_DEFINED
+: 'def?'
+;
 KEYWORD_UNDEFINE
 : 'rm!'
 ;
+KEYWORD_RETURN
+: 'return'
+;
 
-KEYWORD_IS_DEFINED
-: 'def?'
+PLUS
+: '+'
+;
+MINUS
+: '-'
+;
+MULTIPLY
+: '*'
+;
+DIVISION
+: '/'
 ;
 
 AND
@@ -126,7 +148,7 @@ REAL_LITERAL
 : DIGIT+ ('.' DIGIT+)
 ;
 HEX_LITERAL
-: HEXDIGIT+
+: '0x' HEXDIGIT+
 ;
 
 ESCAPE_SEQUENCE
@@ -156,4 +178,8 @@ CHAR
 
 WHITESPACE
 : (' ' | '\r' | '\t' | '\u000C' | '\n') -> skip
+;
+
+MULTILINE_COMMENT
+: ('/' '*' .*? '*' '/') -> skip
 ;

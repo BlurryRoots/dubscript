@@ -5,6 +5,9 @@ c & ("keks" < depp_kopf | (-2.3 \= 13)) : {
     };
 };
 
+/*
+ * stuff with stuff
+ */
 c : false {
     ("keks" < depp_kopf) : {
         def! stuff "nudelsalat";
@@ -12,6 +15,7 @@ c : false {
     : depp_kopf = "hans" {
         def! hans (index value) -> {
             def! keks 12;
+            return keks * keks + 3 * keks * (0xAFFE42 + 1.618);
         };
         def! blank () -> {};
     };
