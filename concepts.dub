@@ -18,7 +18,7 @@ def? a : true { // the true here is optional
           : { return "number"; } 
           // the return statment is optional, by default the last expression
           // is returned
-          : false { a.type.string; };
+          : false { return a.type.string; };
     println "a is defined as " a.string;
 };
 
@@ -44,19 +44,19 @@ c & ((d = 42) | (d = 23)) : {
 };
 // which can also be accomblished by 
 print "c is " (c : {
-    "true" (d : 42 | 23 { " and d is " d.string; });
+    return "true" (d : 42 | 23 { " and d is " d.string; });
 } : ? {
-    "something else!";
+    return "something else!";
 });
 
 // here a list of numbers from 1 to 6 a reduced
 // by the logic privided by the anonymous function
 // or lamnda and then assigned to e
-def! e [1 2 3 4 5 6].reduce (x y) -> { x + y; };
+def! e [1 2 3 4 5 6].reduce (x y) -> { return x + y; };
 
 // defining a function to add two numbers
 def! add (a b) -> {
-    a + b;
+    return a + b;
 };
 println "calling add with 1111 and 226 is "
         (add 1111 226).string;
@@ -65,7 +65,7 @@ println "calling add with 1111 and 226 is "
 rm! add;
 // alternativly you could've done
 fun add a b {
-    a + b;
+    return a + b;
 };
 
 // lets do some fancy stuff

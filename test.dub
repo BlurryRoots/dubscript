@@ -14,8 +14,11 @@ c : false {
     } 
     : depp_kopf = "hans" {
         def! hans (index value) -> {
-            def! keks 12;
-            return keks * keks + 3 * keks * (0xAFFE42 + 1.618);
+            // create a list
+            def! keks [12 3 42];
+            // return result of arithmic expression
+            return keks * keks
+                 + 3 * keks * (0xAFFE42 + 1.618);
         };
         def! blank () -> {};
     };

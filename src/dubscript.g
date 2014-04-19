@@ -30,9 +30,14 @@ pattern
 expression
 : artithmetic_expression
 | conditional_expression
+| list_expression
 | lamnda_expression
 | KEYWORD_IS_DEFINED IDENTIFIER
 | KEYWORD_RETURN expression
+;
+
+list_expression
+: '[' expression* ']'
 ;
 
 lamnda_expression
@@ -182,4 +187,7 @@ WHITESPACE
 
 MULTILINE_COMMENT
 : ('/' '*' .*? '*' '/') -> skip
+;
+LINE_COMMENT
+: '/' '/' ~('\u000C' | '\r' | '\n')* -> skip
 ;
