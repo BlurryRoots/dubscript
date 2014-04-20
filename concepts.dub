@@ -3,6 +3,11 @@ wobble "ideas";
 /*
  * Hardwire Component system model!?
  */
+ data position {
+    x # int;
+    y # int;
+ };
+
 
 // shiööt
 // define and set a to 1.618

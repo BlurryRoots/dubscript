@@ -1,8 +1,11 @@
 c & ("keks" < depp_kopf | (-2.3 \= 13)) : {
     def! keks_nase -1337.42;
-    (def? keks_nase) : {
+
+    def? keks_nase : {
         rm! keks_nase;
     };
+
+    def! klöße "brauße";
 };
 
 /*
@@ -27,7 +30,7 @@ c : false {
         def! blank () -> {};
 
         def! sum 0;
-        keks.reduce (a b) -> {
+        return keks.reduce (a b) -> {
             return a + b;
         };
     };

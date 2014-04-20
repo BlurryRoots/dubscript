@@ -197,15 +197,47 @@ ESCAPE_SEQUENCE
 ;
 
 IDENTIFIER
-: LETTER (LETTER | DIGIT)*
+: ID_HEAD (ID_BODY)*
 ;
-
 fragment
-LETTER
-: '$'
+ID_HEAD
+: '_'
+| '$'
 | CHAR
-| '_'
+| '\u00B7'
+| '\u0300'..'\u036F'
+| '\u203F'..'\u2040'
 ;
+fragment
+ID_BODY
+: ID_HEAD
+| DIGIT
+| UNICODE_CHAR
+;
+/*
+fragment
+ID_HEAD
+: DIGIT
+| '_'
+| '\u00B7'
+| '\u0300'..'\u036F'
+| '\u203F'..'\u2040'
+;
+fragment
+ID_BODY
+: '\u00C0'..'\u00D6'
+| '\u00D8'..'\u00F6'
+| '\u00F8'..'\u02FF'
+| '\u0370'..'\u037D'
+| '\u037F'..'\u1FFF'
+| '\u200C'..'\u200D'
+| '\u2070'..'\u218F'
+| '\u2C00'..'\u2FEF'
+| '\u3001'..'\uD7FF'
+| '\uF900'..'\uFDCF'
+| '\uFDF0'..'\uFFFD'
+;
+*/
 
 DIGIT
 : '0'..'9';
@@ -215,7 +247,21 @@ HEXDIGIT
 
 CHAR
 : 'A'..'Z'
-| 'a'..'z';
+| 'a'..'z'
+;
+UNICODE_CHAR
+: '\u00C0'..'\u00D6'
+| '\u00D8'..'\u00F6'
+| '\u00F8'..'\u02FF'
+| '\u0370'..'\u037D'
+| '\u037F'..'\u1FFF'
+| '\u200C'..'\u200D'
+| '\u2070'..'\u218F'
+| '\u2C00'..'\u2FEF'
+| '\u3001'..'\uD7FF'
+| '\uF900'..'\uFDCF'
+| '\uFDF0'..'\uFFFD'
+;
 
 WHITESPACE
 : (' ' | '\r' | '\t' | '\u000C' | '\n') -> skip
